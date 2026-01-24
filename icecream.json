@@ -1,0 +1,94 @@
+{
+    "icecream": [
+        {
+            "id": "1",
+            "flavour": "Chocolate",
+            "type": "Classic",
+            "callory": "120",
+            "price": 50,
+            "description": "Дуже смачне шоколадне морозиво",
+            "image": "https://foolproofliving.com/wp-content/uploads/2013/10/recipe-for-honey-chocolate-ice-cream.jpg"
+        },
+        {
+            "id": "2",
+            "flavour": "Vanilla",
+            "type": "Classic",
+            "callory": "110",
+            "price": 45,
+            "description": "Ніжне ванільне морозиво з натуральним ароматом",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3Rdb5-DB2-H2C6HlHhE4AGaBEjDOQhM82Dg&s"
+        },
+        {
+            "id": "3",
+            "flavour": "Strawberry",
+            "type": "Fruit",
+            "callory": "100",
+            "price": 48,
+            "description": "Освіжаюче полуничне морозиво",
+            "image": "https://www.elmundoeats.com/wp-content/uploads/2024/07/Strawberry-ice-cream-in-a-cone.jpg"
+        },
+        {
+            "id": "4",
+            "flavour": "Pistachio",
+            "type": "Premium",
+            "callory": "130",
+            "price": 65,
+            "description": "Вишукане фісташкове морозиво",
+            "image": "https://tastesbetterfromscratch.com/wp-content/uploads/2020/08/Pistachio-Ice-Cream-5.jpg"
+        },
+        {
+            "id": "5",
+            "flavour": "Caramel",
+            "type": "Classic",
+            "callory": "125",
+            "price": 55,
+            "description": "Морозиво з солоною карамеллю",
+            "image": "https://howtofeedaloon.com/wp-content/uploads/2023/09/caramel-ice-cream-front-view.jpg"
+        },
+        {
+            "id": "6",
+            "flavour": "Mango",
+            "type": "Fruit",
+            "callory": "95",
+            "price": 52,
+            "description": "Тропічне мангове морозиво",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_vhfJXSiJGbgBWZu9vmlbqeW1UQwyFX1W3g&s"
+        },
+        {
+            "id": "7",
+            "flavour": "Blueberry",
+            "type": "Fruit",
+            "callory": "98",
+            "price": 50,
+            "description": "Ягідне морозиво з чорниці",
+            "image": "https://flavormosaic.com/wp-content/uploads/2025/06/Blueberry-Cheesecake-Ice-Cream-29-2.jpg"
+        },
+        {
+            "id": "8",
+            "flavour": "Mint",
+            "type": "Refreshing",
+            "callory": "90",
+            "price": 47,
+            "description": "Освіжаюче м’ятне морозиво",
+            "image": "https://icecreamfromscratch.com/wp-content/uploads/2023/02/Andes-Ice-Cream-1.2-735x1103.jpg"
+        },
+        {
+            "id": "9",
+            "flavour": "Cookie",
+            "type": "Dessert",
+            "callory": "140",
+            "price": 60,
+            "description": "Морозиво з шматочками печива",
+            "image": "https://celebratingsweets.com/wp-content/uploads/2023/04/Cookie-Dough-Ice-Cream-9.jpg"
+        },
+        {
+            "id": "10",
+            "flavour": "Lemon",
+            "type": "Sorbet",
+            "callory": "85",
+            "price": 45,
+            "description": "Легкий лимонний сорбет",
+            "image": "https://www.yourhomebasedmom.com/wp-content/uploads/2013/07/lemon-ice-cream-4.jpg"
+        }
+    ]
+}

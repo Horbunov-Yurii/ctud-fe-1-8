@@ -1,0 +1,73 @@
+.container {
+    width: 1000px;
+    margin: 0 auto;
+    outline: 1px solid rgb(187, 175, 175);
+    border-radius: 20px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.item {
+    flex-basis: calc((100% - 60px)/ 3);
+    outline: 1px dashed gray;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.item-img {
+    width: 100%;
+    display: block;
+    height: 400px;
+}
+
+.item-flavour {
+    font-size: 24px;
+    font-family: Roboto;
+}
+
+.item-type {
+    font-size: 20px;
+    font-family: Roboto;
+    color: gray;
+}
+
+.item-price {
+    font-size: 20px;
+    font-family: Roboto;
+    color: rgb(181, 226, 113);
+}
+
+.item-desc {
+    font-size: 20px;
+    font-family: Roboto;
+    color: rgb(210, 210, 210);
+}
+
+.btn-wrapper {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+
+}
+
+.button {
+    padding: 10px 40px;
+    border-radius: 15px;
+    outline: 0;
+    border: 0;
+}
+
+.button[data-action='delete'] {
+    background-color: red;
+}
+
+.button[data-action='edit'] {
+    background-color: rgb(153, 255, 0);
+}
