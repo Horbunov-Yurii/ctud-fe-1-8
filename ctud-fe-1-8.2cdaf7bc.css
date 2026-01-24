@@ -1,0 +1,73 @@
+.container {
+  border-radius: 20px;
+  outline: 1px solid #bbafaf;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+ul {
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.item {
+  border-radius: 20px;
+  outline: 1px dashed gray;
+  flex-basis: calc(33.3333% - 20px);
+  padding: 10px;
+}
+
+.item-img {
+  width: 100%;
+  height: 400px;
+  display: block;
+}
+
+.item-flavour {
+  font-family: Roboto;
+  font-size: 24px;
+}
+
+.item-type {
+  color: gray;
+  font-family: Roboto;
+  font-size: 20px;
+}
+
+.item-price {
+  color: #b5e271;
+  font-family: Roboto;
+  font-size: 20px;
+}
+
+.item-desc {
+  color: #d2d2d2;
+  font-family: Roboto;
+  font-size: 20px;
+}
+
+.btn-wrapper {
+  justify-content: center;
+  gap: 10px;
+  display: flex;
+}
+
+.button {
+  border: 0;
+  border-radius: 15px;
+  outline: 0;
+  padding: 10px 40px;
+}
+
+.button[data-action="delete"] {
+  background-color: red;
+}
+
+.button[data-action="edit"] {
+  background-color: #9f0;
+}
+/*# sourceMappingURL=ctud-fe-1-8.2cdaf7bc.css.map */
