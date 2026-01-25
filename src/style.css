@@ -71,3 +71,69 @@ ul {
 .button[data-action='edit'] {
     background-color: rgb(153, 255, 0);
 }
+
+.add-btn{
+    width: 200px;
+    height: 50px;
+    margin: 0 auto;
+    display: block;
+    background-color: rgb(129, 129, 129);
+    color: aliceblue;
+    border-radius: 15px;
+    border: none;
+    margin-bottom:50px ;
+    margin-top:50px;
+    font-size: 20px;
+    transition: all 300ms;
+}
+.add-btn:hover{
+    background-color:  rgb(100, 100, 100);
+}
+/* modal ---------------------------------------*/
+
+.backdrop{
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.411);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   display: none;
+}
+
+.modal{
+    background-color: azure;
+    width: 500px;
+    height: 500px;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+input{
+    display: block;
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    border: solid 2px grey;
+}
+
+.create-btn{
+height: 50px;
+width: 100px;
+border-radius: 15;
+margin-top: 20px;
+background-color: rgb(211, 211, 211);
+border: 2px solid rgb(180, 180, 180);
+transition: all 400ms;
+}
+.create-btn:hover{
+    background-color: rgb(170, 170, 170);
+border: 2px solid rgb(235, 235, 235);
+}
