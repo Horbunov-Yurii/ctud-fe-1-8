@@ -715,8 +715,11 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"2R06K":[function(require,module,exports,__globalThis) {
 var _getIceAPI = require("./api/getIceAPI");
-// console.log(getIceAPI);
+var _postIceAPI = require("./api/postIceAPI");
 const list = document.querySelector(".list");
+const addBtn = document.querySelector(".add-btn");
+const backdropEl = document.querySelector(".backdrop");
+const formEl = document.querySelector(".modal-form");
 (0, _getIceAPI.getIceAPI)().then((res)=>renderLayout(res));
 function renderLayout(array) {
     const item = array.map(({ id, flavour, type, callory, price, description, image })=>{
@@ -731,10 +734,36 @@ function renderLayout(array) {
         </div>
         </li>`;
     }).join("");
-    list.insertAdjacentHTML("beforeend", item);
+    list.innerHTML = item;
 }
+//modal---------------
+addBtn.addEventListener("click", ()=>{
+    openModal();
+});
+function openModal() {
+    backdropEl.style.display = "flex";
+}
+function closeModal() {
+    backdropEl.style.display = "none";
+}
+formEl.addEventListener("submit", (event)=>{
+    event.preventDefault();
+    const elements = event.currentTarget.elements;
+    const icecreamData = {
+        flavour: elements.flavour.value.trim(),
+        type: elements.type.value.trim(),
+        price: elements.price.value.trim(),
+        description: elements.desc.value.trim(),
+        image: elements.url.value.trim()
+    };
+    (0, _postIceAPI.postIceAPI)(icecreamData).then((res)=>{
+        formEl.reset();
+        closeModal();
+        (0, _getIceAPI.getIceAPI)().then((res)=>renderLayout(res));
+    });
+});
 
-},{"./api/getIceAPI":"ljSio"}],"ljSio":[function(require,module,exports,__globalThis) {
+},{"./api/getIceAPI":"ljSio","./api/postIceAPI":"8n6Td"}],"ljSio":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getIceAPI", ()=>getIceAPI);
@@ -772,6 +801,21 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["7wZbQ","2R06K"], "2R06K", "parcelRequire6490", {})
+},{}],"8n6Td":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "postIceAPI", ()=>postIceAPI);
+const postIceAPI = (iceCream)=>{
+    const options = {
+        method: "POST",
+        body: JSON.stringify(iceCream),
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8"
+        }
+    };
+    return fetch("http://localhost:3000/icecream", options).then((res)=>res.json());
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["7wZbQ","2R06K"], "2R06K", "parcelRequire6490", {})
 
 //# sourceMappingURL=ctud-fe-1-8.0f77c784.js.map
