@@ -716,6 +716,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"2R06K":[function(require,module,exports,__globalThis) {
 var _getIceAPI = require("./api/getIceAPI");
 var _postIceAPI = require("./api/postIceAPI");
+var _delIceAPI = require("./api/delIceAPI");
 const list = document.querySelector(".list");
 const addBtn = document.querySelector(".add-btn");
 const backdropEl = document.querySelector(".backdrop");
@@ -723,7 +724,7 @@ const formEl = document.querySelector(".modal-form");
 (0, _getIceAPI.getIceAPI)().then((res)=>renderLayout(res));
 function renderLayout(array) {
     const item = array.map(({ id, flavour, type, callory, price, description, image })=>{
-        return `<li class="item">
+        return `<li id="${id}" class="item">
             <img src="${image}" alt="${type}" class="item-img">
             <h3 class="item-flavour">${flavour}</h3>
             <p class="item-type">${type}</p>
@@ -762,8 +763,16 @@ formEl.addEventListener("submit", (event)=>{
         (0, _getIceAPI.getIceAPI)().then((res)=>renderLayout(res));
     });
 });
+list.addEventListener("click", (event)=>{
+    const action = event.target.dataset.action;
+    if (!action) return;
+    // const li = event.target.parentNode.parentNode
+    const li = event.target.closest("li");
+    const id = li.id;
+    if (action === "delete") (0, _delIceAPI.delIceAPI)(id).then((res)=>(0, _getIceAPI.getIceAPI)(res)).then((res)=>renderLayout(res));
+});
 
-},{"./api/getIceAPI":"ljSio","./api/postIceAPI":"8n6Td"}],"ljSio":[function(require,module,exports,__globalThis) {
+},{"./api/getIceAPI":"ljSio","./api/postIceAPI":"8n6Td","./api/delIceAPI":"b2AV2"}],"ljSio":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getIceAPI", ()=>getIceAPI);
@@ -814,6 +823,16 @@ const postIceAPI = (iceCream)=>{
         }
     };
     return fetch("http://localhost:3000/icecream", options).then((res)=>res.json());
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"b2AV2":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "delIceAPI", ()=>delIceAPI);
+const delIceAPI = (id)=>{
+    return fetch(`http://localhost:3000/icecream/${id}`, {
+        method: "DELETE"
+    }).then((res)=>res.json());
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["7wZbQ","2R06K"], "2R06K", "parcelRequire6490", {})
