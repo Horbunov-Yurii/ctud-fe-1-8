@@ -1,7 +1,7 @@
 import { getIceAPI } from "./api/getIceAPI";
 import { postIceAPI } from "./api/postIceAPI";
 import { delIceAPI } from "./api/delIceAPI";
-
+import { upddateIceApi } from "./api/updateiceApi";
 
 
 const list = document.querySelector(".list");
@@ -9,7 +9,7 @@ const addBtn = document.querySelector(".add-btn")
 const backdropEl = document.querySelector(".backdrop")
 const formEl = document.querySelector(".modal-form")
 
-
+let currentEdit = null;
 
 getIceAPI().then((res) => renderLayout(res));
 
@@ -67,6 +67,7 @@ formEl.addEventListener("submit", (event) => {
 })
 
 list.addEventListener("click", (event) => {
+
   const action = event.target.dataset.action
   if (!action) {
     return
@@ -77,5 +78,15 @@ list.addEventListener("click", (event) => {
   if (action === "delete") {
     delIceAPI(id).then(res => getIceAPI(res)).then(res => renderLayout(res))
   }
+  if(action === "edit") {
+    currentEdit = id;
+
+    formEl.elements.url.value = li.querySelector(".item-img")
+    console.log(formEl.elements.url);
+        openModal()
+    
+  }
   
 })
+
+
