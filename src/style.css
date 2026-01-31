@@ -72,7 +72,7 @@ ul {
     background-color: rgb(153, 255, 0);
 }
 
-.add-btn{
+.add-btn {
     width: 200px;
     height: 50px;
     margin: 0 auto;
@@ -81,31 +81,33 @@ ul {
     color: aliceblue;
     border-radius: 15px;
     border: none;
-    margin-bottom:50px ;
-    margin-top:50px;
+    margin-bottom: 50px;
+    margin-top: 50px;
     font-size: 20px;
     transition: all 300ms;
 }
-.add-btn:hover{
-    background-color:  rgb(100, 100, 100);
+
+.add-btn:hover {
+    background-color: rgb(100, 100, 100);
 }
+
 /* modal ---------------------------------------*/
 
-.backdrop{
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background-color: rgba(0, 0, 0, 0.411);
-   display: flex;
-   justify-content: center;
-   align-items: center;
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.411);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-   display: none;
+    display: none;
 }
 
-.modal{
+.modal {
     background-color: azure;
     width: 500px;
     height: 500px;
@@ -114,7 +116,7 @@ ul {
     text-align: center;
 }
 
-input{
+input {
     display: block;
     width: 100%;
     height: 50px;
@@ -124,16 +126,17 @@ input{
     border: solid 2px grey;
 }
 
-.create-btn{
-height: 50px;
-width: 100px;
-border-radius: 15;
-margin-top: 20px;
-background-color: rgb(211, 211, 211);
-border: 2px solid rgb(180, 180, 180);
-transition: all 400ms;
+.create-btn {
+    height: 50px;
+    width: 100px;
+    border-radius: 15;
+    margin-top: 20px;
+    background-color: rgb(211, 211, 211);
+    border: 2px solid rgb(180, 180, 180);
+    transition: all 400ms;
 }
-.create-btn:hover{
+
+.create-btn:hover {
     background-color: rgb(170, 170, 170);
-border: 2px solid rgb(235, 235, 235);
+    border: 2px solid rgb(235, 235, 235);
 }
