@@ -82,7 +82,7 @@ list.addEventListener("click", (event) => {
     currentEdit = id;
 
     formEl.elements.url.value = li.querySelector(".item-img")
-    console.log(formEl.elements.url);
+    // console.log(formEl.elements.url);
         openModal()
     
   }
