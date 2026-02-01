@@ -48,6 +48,7 @@ function closeModal() {
 formEl.addEventListener("submit", (event) => {
 
   event.preventDefault()
+ 
   const elements = event.currentTarget.elements
 
   const icecreamData = {
@@ -57,14 +58,27 @@ formEl.addEventListener("submit", (event) => {
     description: elements.desc.value.trim(),
     image: elements.url.value.trim()
   }
+if (currentEdit === null ) {
+    postIceAPI(icecreamData).then((res) => {
+    formEl.reset()
+    closeModal()
+    getIceAPI().then((res) => renderLayout(res));
+    
+  }) 
 
-  postIceAPI(icecreamData).then((res) => {
+}
+if (currentEdit) {
+   console.log(currentEdit);
+  
+  upddateIceApi(currentEdit,icecreamData).then(res => {
     formEl.reset()
     closeModal()
     getIceAPI().then((res) => renderLayout(res));
   })
+}
+}
 
-})
+)
 
 list.addEventListener("click", (event) => {
 
@@ -79,10 +93,14 @@ list.addEventListener("click", (event) => {
     delIceAPI(id).then(res => getIceAPI(res)).then(res => renderLayout(res))
   }
   if(action === "edit") {
-    currentEdit = id;
+    currentEdit =  id
 
-    formEl.elements.url.value = li.querySelector(".item-img")
-    // console.log(formEl.elements.url);
+    formEl.elements.url.value = li.querySelector(".item-img").src;
+    formEl.elements.flavour.value = li.querySelector(".item-flavour").textContent
+    formEl.elements.type.value = li.querySelector(".item-type").textContent
+    formEl.elements.price.value = li.querySelector(".item-price").textContent
+    formEl.elements.desc.value = li.querySelector(".item-desc").textContent
+
         openModal()
     
   }
