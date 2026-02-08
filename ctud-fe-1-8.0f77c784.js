@@ -717,18 +717,25 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 var _getIceAPI = require("./api/getIceAPI");
 var _postIceAPI = require("./api/postIceAPI");
 var _delIceAPI = require("./api/delIceAPI");
+var _updateiceApi = require("./api/updateiceApi");
 const list = document.querySelector(".list");
 const addBtn = document.querySelector(".add-btn");
 const backdropEl = document.querySelector(".backdrop");
 const formEl = document.querySelector(".modal-form");
-(0, _getIceAPI.getIceAPI)().then((res)=>renderLayout(res));
+let currentEdit = null;
+// getIceAPI().then((res) => renderLayout(res));
+const init = async ()=>{
+    const res = await (0, _getIceAPI.getIceAPI)();
+    renderLayout(res);
+};
+init();
 function renderLayout(array) {
-    const item = array.map(({ id, flavour, type, callory, price, description, image })=>{
+    const item = array.map(({ id, flavour, type, price, description, image })=>{
         return `<li id="${id}" class="item">
             <img src="${image}" alt="${type}" class="item-img">
             <h3 class="item-flavour">${flavour}</h3>
             <p class="item-type">${type}</p>
-            <p class="item-price">$${price}</p>
+            <p class="item-price">$<span class="span">${price}</span></p>
             <p class="item-desc">${description}</p>
             <div class="btn-wrapper"> <button data-action="delete" type="button" class="button">Delete</button>
             <button data-action="edit" type="button" class="button">Edit</button>
@@ -747,7 +754,7 @@ function openModal() {
 function closeModal() {
     backdropEl.style.display = "none";
 }
-formEl.addEventListener("submit", (event)=>{
+formEl.addEventListener("submit", async (event)=>{
     event.preventDefault();
     const elements = event.currentTarget.elements;
     const icecreamData = {
@@ -757,28 +764,67 @@ formEl.addEventListener("submit", (event)=>{
         description: elements.desc.value.trim(),
         image: elements.url.value.trim()
     };
-    (0, _postIceAPI.postIceAPI)(icecreamData).then((res)=>{
+    if (currentEdit === null) {
+        //   postIceAPI(icecreamData).then((res) => {
+        //   formEl.reset()
+        //   closeModal()
+        //   getIceAPI().then((res) => renderLayout(res));
+        // }) 
+        await (0, _postIceAPI.postIceAPI)(icecreamData);
         formEl.reset();
         closeModal();
-        (0, _getIceAPI.getIceAPI)().then((res)=>renderLayout(res));
-    });
+        const res = await (0, _getIceAPI.getIceAPI)();
+        renderLayout(res);
+    }
+    if (currentEdit) {
+        // upddateIceApi(currentEdit,icecreamData).then(res => {
+        //   formEl.reset()
+        //   closeModal()
+        //   getIceAPI().then((res) => renderLayout(res));
+        // })
+        await (0, _updateiceApi.upddateIceApi)(currentEdit, icecreamData);
+        formEl.reset();
+        closeModal();
+        const res = await (0, _getIceAPI.getIceAPI)();
+        renderLayout(res);
+        currentEdit = null;
+    }
 });
-list.addEventListener("click", (event)=>{
+list.addEventListener("click", async (event)=>{
     const action = event.target.dataset.action;
     if (!action) return;
     // const li = event.target.parentNode.parentNode
     const li = event.target.closest("li");
     const id = li.id;
-    if (action === "delete") (0, _delIceAPI.delIceAPI)(id).then((res)=>(0, _getIceAPI.getIceAPI)(res)).then((res)=>renderLayout(res));
+    if (action === "delete") {
+        // delIceAPI(id).then(res => getIceAPI(res)).then(res => renderLayout(res))
+        await (0, _delIceAPI.delIceAPI)(id);
+        const res = await (0, _getIceAPI.getIceAPI)();
+        console.log(res);
+        renderLayout(res);
+    }
+    if (action === "edit") {
+        currentEdit = id;
+        formEl.elements.url.value = li.querySelector(".item-img").src;
+        formEl.elements.flavour.value = li.querySelector(".item-flavour").textContent;
+        formEl.elements.type.value = li.querySelector(".item-type").textContent;
+        formEl.elements.price.value = li.querySelector(".span").textContent;
+        formEl.elements.desc.value = li.querySelector(".item-desc").textContent;
+        openModal();
+    }
 });
 
-},{"./api/getIceAPI":"ljSio","./api/postIceAPI":"8n6Td","./api/delIceAPI":"b2AV2"}],"ljSio":[function(require,module,exports,__globalThis) {
+},{"./api/getIceAPI":"ljSio","./api/postIceAPI":"8n6Td","./api/delIceAPI":"b2AV2","./api/updateiceApi":"7RJKE"}],"ljSio":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getIceAPI", ()=>getIceAPI);
-const getIceAPI = ()=>{
-    return fetch("http://localhost:3000/icecream").then((res)=>res.json());
-};
+const getIceAPI = async ()=>{
+    const res = await fetch("http://localhost:3000/icecream");
+    if (!res.ok) throw new Error("Failed!");
+    return res.json();
+}; // export const getIceAPI = () => {
+ //   return fetch("http://localhost:3000/icecream").then((res) => res.json());
+ // };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"jnFvT":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
@@ -814,7 +860,7 @@ exports.export = function(dest, destName, get) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "postIceAPI", ()=>postIceAPI);
-const postIceAPI = (iceCream)=>{
+const postIceAPI = async (iceCream)=>{
     const options = {
         method: "POST",
         body: JSON.stringify(iceCream),
@@ -822,18 +868,60 @@ const postIceAPI = (iceCream)=>{
             "Content-Type": "application/json; charset=UTF-8"
         }
     };
-    return fetch("http://localhost:3000/icecream", options).then((res)=>res.json());
-};
+    const res = await fetch("http://localhost:3000/icecream", options);
+    if (!res.ok) throw new Error("Failed!");
+    return res.json();
+}; // export const postIceAPI = (iceCream) => {
+ // const options = {
+ // method: "POST",
+ // body: JSON.stringify(iceCream),
+ // headers: {
+ // "Content-Type": "application/json; charset=UTF-8",
+ // },
+ // };
+ //   return fetch("http://localhost:3000/icecream", options).then((res) => res.json());
+ // };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"b2AV2":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "delIceAPI", ()=>delIceAPI);
-const delIceAPI = (id)=>{
-    return fetch(`http://localhost:3000/icecream/${id}`, {
+const delIceAPI = async (id)=>{
+    const res = await fetch(`http://localhost:3000/icecream/${id}`, {
         method: "DELETE"
-    }).then((res)=>res.json());
-};
+    });
+    if (!res.ok) throw new Error("Failed!");
+    return res.json();
+}; // export const delIceAPI = (id) => {
+ //     return fetch(`http://localhost:3000/icecream/${id}`, {
+ //         method: "DELETE",
+ //     }).then((res) => res.json());
+ // }
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"7RJKE":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "upddateIceApi", ()=>upddateIceApi);
+const upddateIceApi = async (id, icecream)=>{
+    const options = {
+        method: "PUT",
+        body: JSON.stringify(icecream),
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8"
+        }
+    };
+    const res = await fetch(`http://localhost:3000/icecream/${id}`, options);
+    if (!res.ok) throw new Error("Failed!");
+    return res.json();
+}; // export const upddateIceApi = (id, icecream) => {
+ //     const options = {
+ //     method: "PUT",
+ //     body: JSON.stringify(icecream),
+ //     headers: {
+ //     "Content-Type": "application/json; charset=UTF-8",
+ // }}
+ //     return fetch(`http://localhost:3000/icecream/${id}`, options).then((res) => res.json())
+ // }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["7wZbQ","2R06K"], "2R06K", "parcelRequire6490", {})
 
